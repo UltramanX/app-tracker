@@ -28,7 +28,20 @@
 		<strong>Symbol: </strong><%= @stock.ticker %>
 		<strong>Name: </strong><%= @stock.name %>
 		<strong>Price: </strong><%= @stock.current_price %>
-		<%= link_to "Add Stock", user_stocks_path(user: current_user, stock_ticker: @stock.ticker),
-		class: "btn btn-xs btn-success", method: :post %>
+		<% if current_user.can_add_stock?(@stock.ticker) %>
+			<%= link_to "Add Stock", user_stocks_path(user: current_user, stock_ticker: @stock.ticker),
+			class: "btn btn-xs btn-success", method: :post %>
+		<% else %>
+		  <span class="label label-default">
+		    Stock has been added previously.
+		    <% if !current_user.under_stock_limit? %>
+		      5 stocks
+		    <% end %>
+		    <% if current_user.stock_already_added?(@stock.ticker) %>
+		      Not allow
+		    <% end %>
+		  </span>
+		<% end %>
+
 	</div>
 <% end %>
