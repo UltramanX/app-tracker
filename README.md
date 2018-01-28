@@ -36,3 +36,5 @@ search for tickets in https://finance.yahoo.com/quote/SSNLF?p=SSNLF
 -Route -> search_stocks
 
 -Controller -> action - stocks_controller.rb search
+
+ 
